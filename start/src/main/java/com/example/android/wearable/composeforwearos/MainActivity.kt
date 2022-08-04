@@ -25,10 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.rememberScalingLazyListState
+import androidx.wear.compose.material.*
 import com.example.android.wearable.composeforwearos.theme.WearAppTheme
 
 /**
@@ -58,34 +55,31 @@ class MainActivity : ComponentActivity() {
 fun WearApp() {
     WearAppTheme {
 
-        /* *************************** Part 4: Wear OS Scaffold *************************** */
-        // TODO (Start): Create a Scaffold (Wear Version)
-
-        // Modifiers used by our Wear composables.
-        val contentModifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)
-        val iconModifier = Modifier
-            .size(24.dp)
-            .wrapContentSize(align = Alignment.Center)
-
-
         val listState = rememberScalingLazyListState()
-        ScalingLazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            state = listState,
-            autoCentering = AutoCenteringParams(itemIndex = 0)
+        Scaffold(
+            timeText = { if (!listState.isScrollInProgress) TimeText() },
+            vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
+            positionIndicator = { PositionIndicator(scalingLazyListState = listState) }
         ) {
-            item { PhoneButton(contentModifier, iconModifier) }
-            item { ShapeText(contentModifier) }
-            item { MessageCard(contentModifier, iconModifier) }
-            item { MeditationChip(contentModifier, iconModifier) }
-            item { SoundToggleChip(contentModifier) }
+            val contentModifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+            val iconModifier = Modifier
+                .size(24.dp)
+                .wrapContentSize(align = Alignment.Center)
+
+            ScalingLazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                state = listState,
+                autoCentering = AutoCenteringParams(itemIndex = 0)
+            ) {
+                item { PhoneButton(contentModifier, iconModifier) }
+                item { ShapeText(contentModifier) }
+                item { MessageCard(contentModifier, iconModifier) }
+                item { MeditationChip(contentModifier, iconModifier) }
+                item { SoundToggleChip(contentModifier) }
+            }
         }
-
-        // TODO (End): Create a Scaffold (Wear Version)
-//
-
     }
 }
 
