@@ -19,11 +19,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Message
 import androidx.compose.material.icons.rounded.Phone
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.rounded.SelfImprovement
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.*
@@ -86,19 +88,54 @@ fun MessageCard(
     }
 }
 
-// TODO: Create a Chip Composable
 @Composable
-fun ChipExample(
+fun MeditationChip(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
-
+    Chip(
+        modifier = modifier,
+        onClick = { },
+        label = {
+            Text(
+                text = "5초간 명상함",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        icon = {
+            Icon(
+                imageVector = Icons.Rounded.SelfImprovement,
+                contentDescription = "meditation",
+                modifier = iconModifier
+            )
+        },
+    )
 }
 
-// TODO: Create a ToggleChip Composable
 @Composable
-fun ToggleChipExample(modifier: Modifier = Modifier) {
-
+fun SoundToggleChip(modifier: Modifier = Modifier) {
+    var checked by remember { mutableStateOf(true) }
+    ToggleChip(
+        modifier = modifier,
+        checked = checked,
+        toggleControl = {
+            Icon(
+                imageVector = ToggleChipDefaults.switchIcon(checked = checked),
+                contentDescription = if (checked) "On" else "Off"
+            )
+        },
+        onCheckedChange = {
+            checked = it
+        },
+        label = {
+            Text(
+                text = "소리",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    )
 }
 
 // Function only used as a demo for when you start the code lab (removed as step 1).
@@ -199,7 +236,7 @@ fun CardExamplePreview() {
 @Composable
 fun ChipExamplePreview() {
     WearAppTheme {
-        ChipExample(
+        MeditationChip(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
@@ -223,7 +260,7 @@ fun ChipExamplePreview() {
 @Composable
 fun ToggleChipExamplePreview() {
     WearAppTheme {
-        ToggleChipExample(
+        SoundToggleChip(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
