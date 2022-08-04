@@ -32,14 +32,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.material.Vignette
-import androidx.wear.compose.material.VignettePosition
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.example.android.wearable.composeforwearos.theme.WearAppTheme
 
 /**
@@ -92,13 +86,10 @@ fun WearApp() {
                 state = listState
             ) {
 
-                // TODO: Remove item; for beginning only.
-                item { StartOnlyTextComposables() }
-
                 /* ******************* Part 1: Simple composables ******************* */
-                item { ButtonExample(contentModifier, iconModifier) }
-                item { TextExample(contentModifier) }
-                item { CardExample(contentModifier, iconModifier) }
+                item { PhoneButton(contentModifier, iconModifier) }
+                item { ShapeText(contentModifier) }
+                item { MessageCard(contentModifier, iconModifier) }
 
                 /* ********************* Part 2: Wear unique composables ********************* */
                 item { ChipExample(contentModifier, iconModifier) }
